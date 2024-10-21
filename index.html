@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <h1>7. Introducción al DOM</h1>
+        <h2>Ejercicio 1:</h2>
+        <p>Este es el primer párrafo</p>
+        <p>Este es el segundo párrafo</p>
+        <p>Este es el tercer párrafo</p>
+        <button onclick="cambiarColor()">Cambiar color a azul</button>
+      </div>
+      <br/>
+      <div>
+        <h2>Ejercicio 2: Formulario con alerta</h2>
+        <form onsubmit="mostrarValor(); return false;">
+          <label>Ingresa un texto: </label>
+          <input type="text" id="campoTexto" />
+          <button type="submit">Mostrar Alerta</button>
+        </form>
+      </div>
+      <br/>
+      <div>
+        <h1>8. Eventos en DOM</h1>
+        <h2>Ejercicio 1: Lista con elementos</h2>
+        <ul>
+          <li>Elemento 1</li>
+          <li>Elemento 2</li>
+          <li>Elemento 3</li>
+          <li>Elemento 4</li>
+        </ul>
+        <h2>Ejercicio 2: Campo de texto y botones</h2>
+        <div>
+          <input type="text" id="campoTexto2" placeholder="Ingresa algo"/>
+          <button onclick="deshabilitar()">Deshabilitar</button>
+          <button onclick="habilitar()">Habilitar</button>
+        </div>
+      </div>
+      <br/>
+      <div>
+        <h1>9. LocalStorage</h1>
+        <h2>Ejercicio 1:</h2>
+        <form onsubmit="guardarCorreo(); return false;">
+          <input type="email" id="email" placeholder="Ingresa tu correo"/>
+          <button type="submit">Guardar</button>
+        </form>
+        <p id="correoGuardado"></p>
+        <button onclick="eliminarCorreo()">Eliminar correo</button>
+      </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+    <script>
+      function cambiarColor() {
+        let parrafos = document.querySelectorAll("p");
+        parrafos.forEach(p => p.style.color = "blue");
+      }
+      function mostrarValor() {
+        let valor = document.getElementById("campoTexto").value;
+        alert("Has ingresado: " + valor);
+      }
+      let items = document.querySelectorAll("li");
+      items.forEach(item => item.addEventListener("click", () => {
+        console.log(item.textContent);
+      }));
+
+      function deshabilitar() {
+        let input = document.getElementById("campoTexto2");
+        input.disabled = true;
+      }
+      function habilitar() {
+        let input = document.getElementById("campoTexto2");
+        input.disabled = false;
+      }
+
+      if (localStorage.getItem("correo")) {
+        document.getElementById("correoGuardado").textContent = "Correo guardado: " + localStorage.getItem("correo");
+      }
+      function guardarCorreo() {
+        let correo = document.getElementById("email").value;
+        localStorage.setItem("correo", correo);
+        document.getElementById("correoGuardado").textContent = "Correo guardado: " + correo;
+      }
+      function eliminarCorreo() {
+        localStorage.removeItem("correo");
+        document.getElementById("correoGuardado").textContent = "";
+      }
+    </script>
+  </body>
+</html>
